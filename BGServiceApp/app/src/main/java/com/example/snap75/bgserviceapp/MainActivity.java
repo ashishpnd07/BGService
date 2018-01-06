@@ -65,14 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.start:
-                startService(new Intent(this, MyTestService.class));
-                Calendar cal = Calendar.getInstance();
-                Intent intent = new Intent(this, MyTestService.class);
-                PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
-
-                AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                // Start service every 20 seconds
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),20* 1000, pintent);
+                startService();
                 break;
             case R.id.end:
                 stopService(new Intent(getBaseContext(), MyTestService.class));
@@ -125,7 +118,20 @@ public class MainActivity extends Activity implements OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(this)) {
                 onCreateCode();
+            } else {
+                onCreateCode();
             }
         }
+    }
+
+    void startService() {
+        startService(new Intent(this, MyTestService.class));
+        /*Calendar cal = Calendar.getInstance();
+        Intent intent = new Intent(this, MyTestService.class);
+        PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
+
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        // Start service every 20 seconds
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),20* 1000, pintent);*/
     }
 }

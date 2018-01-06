@@ -21,25 +21,24 @@ public class ReceiverBoot extends BroadcastReceiver {
     private final String BOOT_ACTION = "android.intent.action.BOOT_COMPLETED";
 
     private void startService() {
-        //here, you will start your service
-        mContext.startService(new Intent(mContext, MyTestService.class));
-        Calendar cal = Calendar.getInstance();
-        Intent intent = new Intent(mContext, MyTestService.class);
-        PendingIntent pintent = PendingIntent.getService(mContext, 0, intent, 0);
-
-        AlarmManager alarm = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-        // Start service every 20 seconds
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),20* 1000, pintent);
-        Log.e("onReceiveBoot","in startService");
+        try {
+            mContext.startService(new Intent(mContext, MyTestService.class));
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("onReceiveBoot","in onReceive");
-        mContext = context;
-        String action = intent.getAction();
-        if (action.equalsIgnoreCase(BOOT_ACTION)) {
-            startService();
+        try {
+            Log.e("onReceiveBoot","in onReceive");
+            mContext = context;
+            String action = intent.getAction();
+            if (action.equalsIgnoreCase(BOOT_ACTION)) {
+                startService();
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
         }
     }
 }
